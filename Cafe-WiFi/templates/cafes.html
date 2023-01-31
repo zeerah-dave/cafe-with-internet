@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Favicon -->
+        <link rel="icon" href="{{ url_for('static', filename='assets/favicon(2).ico') }}" />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Allura&family=Edu+TAS+Beginner&family=Great+Vibes&family=Handlee&family=Parisienne&family=The+Nautigal&display=swap" rel="stylesheet">
+
+        <!-- External CSS -->
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+
+        <!-- Font Awesome Script -->
+        <script
+            src="https://kit.fontawesome.com/321779f561.js"
+            crossorigin="anonymous"
+        ></script>
+
+        <style>
+            /* Title */
+            body {
+                background-color: #66bfbf;
+                color: black;
+            }
+            .card-img-top {
+                width: 100%;
+                height: 15rem;
+            }
+            .list-group-item1{
+                background-color: black;
+            }
+            .list-group-item2{
+                background-color: #66bfbf;
+                color: black;
+            }
+        </style>
+        <!-- External CSS -->
+        <title>Cafe & WiFi</title>
+    </head>
+    <body>
+        <!-- Nav Bar section -->
+        <!-- Just an image -->
+        <nav class="navbar fixed-top navbar-light" >
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img
+                    src="{{ url_for('static', filename='assets/previous.png') }}"
+                    width="30"
+                    height="30"
+                    alt=""
+                />
+            </a>
+        </nav>
+
+        <!-- Cards section -->
+        <section id="cafes">
+            <div class="container mt-3">
+                <h1 class="text-center" style="margin-top: 50px; font-family:'great vibes',sans-serif; font-size: 50px;">Cafes</h1>
+                <div class="row">
+                    {% for cafe in query %}
+                    <div class="col-lg-4 mt-4 ">
+                        <img class="card-img-top" src="{{ cafe.img_url }}" alt="Card image cap">
+                        <div class="card-body ">
+                          <h5 class="card-title">{{ cafe.name }}</h5>
+                          <p class="card-text">{{ cafe.location }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% if cafe.has_sockets == '1'%}
+                            <li class="list-group-item list-group-item1">Sockets: Yes</li>
+                            {% else %}
+                            <li class="list-group-item list-group-item1">Sockets: No</li>
+                            {% endif %}
+
+                            {% if cafe.has_toilet == '1'%}
+                            <li class="list-group-item list-group-item2">Toilet: Yes</li>
+                            {% else %}
+                            <li class="list-group-item list-group-item2">Toilet: No</li>
+                            {% endif %}
+
+                            {% if cafe.has_wifi == '1'%}
+                            <li class="list-group-item list-group-item1">WiFi: Yes</li>
+                            {% else %}
+                            <li class="list-group-item list-group-item1">WiFi: No</li>
+                            {% endif %}
+
+                            {% if cafe.can_take_calls == '1'%}
+                            <li class="list-group-item list-group-item2">Can Take Calls: Yes</li>
+                            {% else %}
+                            <li class="list-group-item list-group-item2">Can Take Calls: No</li>
+                            {% endif %}
+
+                          <li class="list-group-item list-group-item1">Seats: {{ cafe.seats }}</li>
+                          <li class="list-group-item list-group-item2">Coffee Price: {{ cafe.coffee_price }}</li>
+                        </ul>
+                        <div class="card-body">
+                          <a href="{{ cafe.map_url }}" class="card-link"><img src="{{ url_for('static', filename='assets/location.png') }}" width="30" height="30"></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+        </section>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
